@@ -71,7 +71,8 @@ export function Login() {
         Alert.alert('Erro', `Sem resposta do servidor`)
       } else {
         // Error occured while setting up the request
-        Alert.alert('Erro', `Falha no envio da requisição`)
+        
+        Alert.alert('Erro', `Falha no envio da requisição. Verifique o nome/senha`)
       }
       
     }
