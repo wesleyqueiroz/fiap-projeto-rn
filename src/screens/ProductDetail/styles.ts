@@ -28,12 +28,12 @@ export const Row = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: ${RFValue(20)}px;
+  font-size: ${RFValue(14)}px;
   font-family: 'Rubik_500Medium';
   color: #3D434D;
 `;
 export const Price = styled.Text`
-  font-size: ${RFValue(20)}px;
+  font-size: ${RFValue(14)}px;
   font-family: 'Rubik_500Medium';
   margin-top: 32px;
   color: #2875CE;
@@ -47,7 +47,7 @@ export const Icon = styled(Fontisto).attrs({
 `;
 
 export const MapContainer = styled.View`
-  flex: 3;
+  flex: 1.5;
   max-width:98%;
   padding: 10px 10px;
 `;

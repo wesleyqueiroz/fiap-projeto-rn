@@ -5,7 +5,7 @@ import ApiConn from '../../services/api/commons/api';
 import { formatCurrency, getSupportedCurrencies } from "react-native-format-currency";
 import MapView, {Marker} from 'react-native-maps';
 
-import {Dimensions} from 'react-native';
+import {Dimensions, View} from 'react-native';
 
 const {width,height} = Dimensions.get('window')
 
@@ -77,7 +77,26 @@ export function ProductDetail({route}) {
     }
   }
 
-  
+  async function handleFavoritePressed() {
+    const token = await AsyncStorage.getItem('token');
+    if(token){
+      
+      console.log("favoritando"+token);
+    
+        const response = await ApiConn.post(`/storeProducts/manageFavorite`,
+        {
+          productID:_id
+        },
+        {
+          headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      console.log("FAVORITOU "+JSON.stringify(response.data))
+      loadData();
+     
+    }
+  }
 
 
   useFocusEffect(useCallback(() => {
@@ -91,10 +110,13 @@ export function ProductDetail({route}) {
         
        <Row>
       <Title>{name}</Title>
-      <Icon
-        name="favorite"
-        color={data.favorite ? 'blue' : 'gray'}
-       />
+      <View>
+        <Icon  onPress={handleFavoritePressed}
+            name="favorite"
+            color={data.favorite ? 'blue' : 'gray'}
+            fill={data.favorite ? 'blue' : 'gray'}
+        />
+      </View>
         </Row> 
 
       <Price>{price}</Price>

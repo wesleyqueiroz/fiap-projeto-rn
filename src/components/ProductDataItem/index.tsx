@@ -36,7 +36,7 @@ export function ProductDataItem({
 }: Props) {
   const { navigate } = useNavigation<NavigationProps>();
  
-  async function handleFavoritePressed() {
+  /* async function handleFavoritePressed() {
     const token = await AsyncStorage.getItem('token');
     if(token){
       
@@ -55,7 +55,7 @@ export function ProductDataItem({
      
      
     }
-  }
+  } */
   
   function handleProductDetail() {
     navigate("ProductDetail", {_id});
@@ -74,10 +74,14 @@ export function ProductDataItem({
                        
           </ProductData>
           <View>
-              {favoriteVisible && <IconFavorite onPress={handleFavoritePressed}
+          <IconFavorite
+               name="favorite"
+                color={favorite ? 'blue' : 'gray'}
+               />
+              {/* {favoriteVisible && <IconFavorite onPress={handleFavoritePressed}
                 name="favorite"
                 color={favorite ? 'blue' : 'gray'}
-                fill={favorite ? 'blue' : 'gray'}/>}
+                fill={favorite ? 'blue' : 'gray'}/>} */}
           </View>
   
     </Container>

@@ -58,7 +58,8 @@ export function Login() {
       if(response){
         const token = response.data.token;
         console.log("TOKENNNN "+token)
-       
+        const user = response.data.name;
+        console.log("USER "+user);
         await AsyncStorage.setItem('token', token); 
         navigate('DrawerNavigator');
       }
