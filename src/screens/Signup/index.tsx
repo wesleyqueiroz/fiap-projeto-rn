@@ -69,7 +69,7 @@ console.log(formData);
   } catch (error) {
     if (error.response) {
       // Request made but the server responded with an error
-      Alert.alert('Erro', `Falha no processamento do servidor ${JSON.stringify(error.response)}`)
+      Alert.alert('Erro', `Falha no processamento do servidor ${JSON.stringify(error.response.data.data)}`)
     } else if (error.request) {
       // Request made but no response is received from the server.
       Alert.alert('Erro', `Sem resposta do servidor`)
