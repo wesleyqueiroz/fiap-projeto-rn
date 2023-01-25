@@ -5,11 +5,14 @@ import { Products } from '../screens/Products';
 import { Favorites } from '../screens/Favorites';
 
 import CustomDrawer from '../components/CustomDrawer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator();
 
 
-  export default function DrawerNavigator() {
+
+  export default  function DrawerNavigator() {
+   
     return (
         <Drawer.Navigator useLegacyImplementation initialRouteName="Products"
            drawerContent={props => <CustomDrawer {...props} />}>

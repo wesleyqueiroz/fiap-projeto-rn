@@ -12,6 +12,7 @@ import { Input } from '../../components/Form/Input';
 import { Button } from '../../components/Form/Button';
 import ApiConn from '../../services/api/commons/api';
 
+
  
 import {
   Container,
@@ -57,10 +58,12 @@ export function Login() {
 
       if(response){
         const token = response.data.token;
-        console.log("TOKENNNN "+token)
         const user = response.data.name;
-        console.log("USER "+user);
+       
         await AsyncStorage.setItem('token', token); 
+        await AsyncStorage.setItem('user', user); 
+        
+       
         navigate('DrawerNavigator');
       }
     } catch (error) {

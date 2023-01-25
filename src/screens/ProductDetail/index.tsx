@@ -1,9 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState,useEffect,  useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import ApiConn from '../../services/api/commons/api';
 import { formatCurrency, getSupportedCurrencies } from "react-native-format-currency";
 import MapView, {Marker} from 'react-native-maps';
+
+import * as Location from 'expo-location';
 
 import {Dimensions, View} from 'react-native';
 
@@ -21,9 +23,7 @@ import {
 
 
 export function ProductDetail({route}) {
-
-  //
-
+  
   const { _id } = route.params;
   const [data, setData] = useState({});
   const [name, setName] = useState('');
@@ -49,8 +49,33 @@ export function ProductDetail({route}) {
        setData(response.data.product);
        setName(response.data.product.name);
 
-       const arrayItems = [];
-       const arrayCoordinates = [];
+       
+       
+       //console.log(data)
+
+
+       const getPermissions = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          console.log("Precisa de permissão!!!!");
+          return;
+        }
+  
+        let currentLocation = await Location.getCurrentPositionAsync({});
+        //setLocation({latitude:currentLocation.coords.latitude, longitude:currentLocation.coords.longitude});
+        console.log("Location:");
+       console.log(currentLocation); 
+
+        const arrayItems = [{
+          title: 'minha localização',
+            coordinates:{
+              latitude:currentLocation.coords.latitude, 
+              longitude:currentLocation.coords.longitude
+        }}];
+       const arrayCoordinates = [{
+              latitude:currentLocation.coords.latitude, 
+              longitude:currentLocation.coords.longitude
+       }];
        response.data.product.stores.forEach((item)=>
         arrayItems.push(
           {
@@ -61,8 +86,10 @@ export function ProductDetail({route}) {
             }
           }
        ));
-       response.data.product.stores.forEach((item)=>
-       arrayCoordinates.push(
+       
+
+        response.data.product.stores.forEach((item)=>
+        arrayCoordinates.push(
           {
             latitude:item.latitude, 
             longitude:item.longitude
@@ -72,7 +99,8 @@ export function ProductDetail({route}) {
       console.log(arrayCoordinates)
        setStore(arrayItems)
        setCoordinates(arrayCoordinates)
-       //console.log(data)
+      };
+      getPermissions();
    
     }
   }
@@ -127,14 +155,17 @@ export function ProductDetail({route}) {
         <Title>Onde Encontrar?</Title>
         <MapView style={{height:"100%", width:"100%"}}
         
-
+ 
         >
-          {store.map(marker => (
-            <Marker 
+          { store.map((marker, index) => (
+            <Marker
+              key={index} 
               coordinate={marker.coordinates}
               title={marker.title}
             />
           ))}
+           
+          
 
         </MapView>
       </MapContainer> 

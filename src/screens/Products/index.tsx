@@ -5,6 +5,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import ApiConn from '../../services/api/commons/api';
 import {ProductDataItem} from '../../components/ProductDataItem';
 
+
 import {
   Container,
   Metadata,
@@ -15,6 +16,8 @@ import {
 
 
 export function Products() {
+
+
     const perPage = 4;
     const [data, setData] = useState([
        

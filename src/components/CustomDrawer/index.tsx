@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ImageBackground,
   StyleSheet,
@@ -12,6 +12,7 @@ import {
 } from '@react-navigation/drawer';
 
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
     
@@ -29,8 +30,11 @@ const {width} = Dimensions.get('screen');
 
 
 
-const CustomDrawer  = (props, navigation) => {
-    console.log(JSON.stringify(props));
+const CustomDrawer  =  (props) => {
+    const [user, setUser] = useState('');
+    AsyncStorage.getItem('user').then(userName => {
+         setUser(userName);
+        })
     
   return (
     <>
@@ -39,7 +43,7 @@ const CustomDrawer  = (props, navigation) => {
         
        <IconUser
         name="user-circle" color="black"/>
-        <Title>Olá {}</Title>
+        <Title>Olá, {user}</Title>
        </Container>
         
       <View style={styles.drawerListWrapper}>
@@ -61,7 +65,7 @@ const CustomDrawer  = (props, navigation) => {
   );
 };
 
-export default CustomDrawer;
+export default CustomDrawer ;
 
 const styles = StyleSheet.create({
   drawerListWrapper: {
